@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dimas Romadhon | Portfolio D3 - Teknik Komputer</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #050505;
+      color: #ecedee;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f0f12;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #a855f7;
+      border-radius: 10px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .card {
+      background: rgba(12, 12, 18, 0.85);
+      backdrop-filter: blur(2px);
+      border-radius: 2rem;
+      padding: 1.8rem;
+      transition: all 0.25s ease;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.5);
+    }
+
+    .card:hover {
+      border-color: rgba(168, 85, 247, 0.6);
+      box-shadow: 0 20px 32px -12px rgba(139, 92, 246, 0.25);
+      transform: translateY(-3px);
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      background: linear-gradient(135deg, #ffffff 0%, #c084fc 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      border-left: 4px solid #a855f7;
+      padding-left: 1rem;
+    }
+
+    .section {
+      margin-bottom: 4rem;
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .hero-content {
+      flex: 2;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(125deg, #ffffff, #c084fc);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.75rem;
+    }
+    .hero-tagline {
+      font-size: 1.3rem;
+      color: #b9b9c3;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .hero-desc {
+      color: #a1a1aa;
+      max-width: 550px;
+      margin-bottom: 1.8rem;
+    }
+    .btn-glow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(95deg, #7c3aed, #a855f7);
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+      transition: 0.2s;
+      border: none;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 20px -6px #7c3aed50;
+    }
+    .btn-glow:hover {
+      transform: scale(1.02);
+      background: linear-gradient(95deg, #8b5cf6, #c084fc);
+      box-shadow: 0 10px 24px -6px #a855f7;
+    }
+    .hero-avatar {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .avatar-circle {
+      width: 170px;
+      height: 170px;
+      background: linear-gradient(135deg, #1e1a2f, #0e0c1a);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #a855f7;
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
+    }
+    .avatar-circle span {
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #e2e8f0, #c084fc);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.8rem;
+    }
+    .skill-tag {
+      background: rgba(168, 85, 247, 0.12);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #d9b8ff;
+      margin: 0.3rem 0.3rem 0 0;
+      border: 0.5px solid rgba(168, 85, 247, 0.3);
+    }
+    .lang-item {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .lang-name {
+      font-weight: 600;
+      min-width: 110px;
+      color: #f0f0f0;
+    }
+    .lang-level {
+      color: #b9b9c3;
+      font-size: 0.9rem;
+    }
+    .icon-purple {
+      color: #a855f7;
+      margin-right: 10px;
+      width: 1.6rem;
+      text-align: center;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .contact-item a {
+      color: #d4d4d8;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .contact-item a:hover {
+      color: #c084fc;
+    }
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, #2a2a35, #a855f7, #2a2a35);
+      margin: 1rem 0;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 0 1rem;
+      border-top: 1px solid rgba(168, 85, 247, 0.2);
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #6b6b7a;
+    }
+    .school-item {
+      margin-bottom: 1.3rem;
+      border-left: 2px solid #a855f7;
+      padding-left: 1rem;
+    }
+    .school-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .school-detail {
+      color: #9ca3af;
+      font-size: 0.9rem;
+    }
+    .grade-highlight {
+      background: #2d1b3e;
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #d8b4fe;
+      margin-top: 0.5rem;
+    }
+    .org-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .org-list li {
+      margin-bottom: 0.85rem;
+      display: flex;
+      gap: 0.6rem;
+      align-items: baseline;
+    }
+    .project-badge {
+      background: #1f1b2e;
+      border-radius: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      margin-top: 0.6rem;
+      color: #c4b5fd;
+    }
+    @media (max-width: 700px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .container {
+        padding: 1.5rem;
+      }
+      h2 {
+        font-size: 1.7rem;
+      }
+      .avatar-circle {
+        width: 130px;
+        height: 130px;
+      }
+      .avatar-circle span {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-microchip"></i> D3 Teknik Komputer | 未来のエンジニア
+      </div>
+      <h1>Dimas Romadhon</h1>
+      <div class="hero-tagline">Computer Engineering (D3) | Embedded & AI Enthusiast | 日本語学習者</div>
+      <p class="hero-desc">Mahasiswa D3 Teknik Komputer dengan hasrat besar pada pengembangan sistem embedded, pemrograman berbasis AI, serta integrasi teknologi dan bahasa. Bertekad meraih karir global di Jepang.</p>
+      <a href="#contact" class="btn-glow"><i class="fas fa-paper-plane"></i> Hubungi Saya</a>
+    </div>
+    <div class="hero-avatar">
+      <div class="avatar-circle">
+        <span>DR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tentang Saya -->
+  <div class="section">
+    <h2><i class="fas fa-user-astronaut" style="margin-right: 12px;"></i> Tentang Saya</h2>
+    <div class="card">
+      <p style="margin-bottom: 1rem; font-size: 1.05rem;">Saya mahasiswa program <strong>D3 Teknik Komputer</strong> dengan minat besar terhadap perkembangan teknologi digital, khususnya di bidang ilmu komputer, embedded system, dan artificial intelligence. Saya memiliki tekad mengembangkan kemampuan akademik serta keterampilan bahasa untuk meraih peluang kerja di luar negeri, khususnya di <strong class="text-purple">Jepang</strong>.</p>
+      <p>Pengalaman organisasi dari tingkat SMP hingga perguruan tinggi membentuk jiwa kepemimpinan, kemampuan humas, serta koordinasi event yang solid. Saya percaya bahwa sinergi antara teknologi dan komunikasi antarbudaya adalah fondasi masa depan.</p>
+    </div>
+  </div>
+
+  <!-- Pendidikan (D3, SMA, etc) -->
+  <div class="section">
+    <h2><i class="fas fa-graduation-cap"></i> Pendidikan</h2>
+    <div class="card">
+      <div class="school-item">
+        <div class="school-title">🎓 D3 Teknik Komputer · UDB (Sedang Berlangsung)</div>
+        <div class="school-detail">Fokus: Embedded System, Pemrograman berbasis AI, Internet of Things | 2025 – Sekarang</div>
+      </div>
+      <div class="school-item">
+        <div class="school-title">🏫 SMA Negeri 1 Sumberlawang</div>
+        <div class="school-detail">Rata-rata nilai rapor semester 1–5: <strong>84,95</strong></div>
+        <div class="grade-highlight"><i class="fas fa-star"></i> Prestasi akademik konsisten</div>
+      </div>
+      <div class="school-item">
+        <div class="school-title">📖 MTS 3 Sragen</div>
+        <div class="school-detail">Pendidikan menengah pertama</div>
+      </div>
+      <div class="school-item">
+        <div class="school-title">📚 SDN Pendem 2</div>
+        <div class="school-detail">Dasar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prestasi & Organisasi (SMP, SMA, KULIAH) updated -->
+  <div class="section">
+    <h2><i class="fas fa-trophy"></i> Organisasi & Kepanitiaan</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="display: flex; gap: 10px; align-items: center; margin-bottom: 1.2rem;"><i class="fas fa-user-graduate" style="color: #a855f7;"></i> SMP & SMA</h3>
+        <ul class="org-list">
+          <li><i class="fas fa-campground icon-purple"></i> <strong>SMP: Anggota Dewan Inti Pramuka</strong> – Koordinasi regu & pengembangan karakter kepramukaan.</li>
+          <li><i class="fas fa-tree icon-purple"></i> <strong>SMA: Anggota Dewan Ambalan Pramuka</strong></li>
+          <li><i class="fas fa-mosque icon-purple"></i> <strong>Anggota Rohani Islam (Rohis)</strong> & menjabat sebagai <strong>Seksi Humas</strong> serta panitia berbagai kegiatan keagamaan Islam di sekolah.</li>
+        </ul>
+        <div class="project-badge"><i class="fas fa-calendar-alt"></i> Koordinator Event Kerohanian Ramadhan (SMA): Mengajukan proposal pendanaan Rp2.000.000, mengelola distribusi 400 kg beras zakat fitrah.</div>
+      </div>
+      <div class="card">
+        <h3 style="display: flex; gap: 10px; align-items: center; margin-bottom: 1.2rem;"><i class="fas fa-university" style="color: #a855f7;"></i> KULIAH (D3)</h3>
+        <ul class="org-list">
+          <li><i class="fas fa-users icon-purple"></i> <strong>Anggota Himpunan Mahasiswa Prodi Teknik Komputer</strong></li>
+          <li><i class="fas fa-chart-line icon-purple"></i> Menjabat sebagai <strong>Seksi Penelitian dan Pembangunan</strong> – Aktif merumuskan program kerja riset & pengembangan internal.</li>
+          <li><i class="fas fa-handshake icon-purple"></i> Panitia <strong>Rapat Kerja Ormawa Fikom</strong> – Kontribusi dalam perencanaan strategis organisasi tingkat fakultas.</li>
+        </ul>
+        <div style="margin-top: 0.8rem; background: rgba(168,85,247,0.08); border-radius: 1rem; padding: 0.6rem 1rem; font-size: 0.85rem;">
+          <i class="fas fa-lightbulb" style="margin-right: 6px; color: #c084fc;"></i> Aktif dalam riset, pengembangan akademik & advokasi mahasiswa.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Proyek & Pengalaman (Perkuliahan + Event) -->
+  <div class="section">
+    <h2><i class="fas fa-flask"></i> Proyek & Pengalaman Teknis</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-bottom: 1rem;"><i class="fas fa-microchip"></i> Proyek Perkuliahan (Semester 1)</h3>
+        <ul class="org-list">
+          <li><i class="fas fa-robot icon-purple"></i> <strong>Perakitan Alat Sensor Berbasis Arduino</strong> – Proyek UAS: perakitan & pemrograman sensor (Arduino IDE) sebagai implementasi embedded system.</li>
+          <li><i class="fas fa-desktop icon-purple"></i> <strong>Eksplorasi Sistem Operasi Zorin</strong> – Instalasi dan pengenalan lingkungan Linux (Zorin OS) untuk manajemen sistem operasi alternatif.</li>
+          <li><i class="fas fa-brain icon-purple"></i> <strong>Pemrograman berbasis AI</strong> – Mempelajari dasar-dasar AI dan implementasi sederhana dalam proyek kampus.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom: 1rem;"><i class="fas fa-chalkboard-user"></i> Pengalaman Organisasi SMA & Event</h3>
+        <ul class="org-list">
+          <li><i class="fas fa-file-invoice-dollar icon-purple"></i> <strong>Koordinator Event Ramadhan</strong> – Mengajukan proposal pendanaan Rp2.000.000, mengelola dana & distribusi 400 kg beras untuk masyarakat.</li>
+          <li><i class="fas fa-hand-sparkles icon-purple"></i> <strong>Seksi Humas Rohis</strong> – Membangun komunikasi eksternal dan koordinasi berbagai kegiatan keagamaan.</li>
+          <li><i class="fas fa-chart-simple icon-purple"></i> <strong>Rapat Kerja Ormawa Fikom</strong> – Kontribusi aktif dalam perumusan program kerja dan sinergi antar himpunan.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keterampilan: Bahasa + Hard skills & soft skills (lengkap) -->
+  <div class="section">
+    <h2><i class="fas fa-code-branch"></i> Keterampilan</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-bottom: 1rem;"><i class="fas fa-language"></i> Bahasa</h3>
+        <div class="lang-item"><span class="lang-name">Bahasa Indonesia</span><span class="lang-level">Native / Penutur asli</span></div>
+        <div class="lang-item"><span class="lang-name">Bahasa Inggris</span><span class="lang-level">Intermediate (aktif membaca, menulis, komunikasi teknis)</span></div>
+        <div class="lang-item"><span class="lang-name">Bahasa Jepang</span><span class="lang-level">Dasar (berbicara & mendengarkan) — 日本語挑戦中</span></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom: 1rem;"><i class="fas fa-laptop-code"></i> Hard Skills & Tools</h3>
+        <div>
+          <span class="skill-tag">Arduino IDE</span>
+          <span class="skill-tag">Sensor & Embedded basic</span>
+          <span class="skill-tag">Microsoft Word/Excel</span>
+          <span class="skill-tag">Pemrograman berbasis AI (dasar)</span>
+          <span class="skill-tag">Zorin OS / Linux</span>
+          <span class="skill-tag">Dasar C++</span>
+        </div>
+        <hr>
+        <h3 style="margin: 0.8rem 0 0.6rem;"><i class="fas fa-users"></i> Soft Skills</h3>
+        <div>
+          <span class="skill-tag">Kepemimpinan</span>
+          <span class="skill-tag">Kerja sama tim</span>
+          <span class="skill-tag">Perencanaan & Koordinasi Acara</span>
+          <span class="skill-tag">Kemampuan adaptasi & Komunikasi antarbudaya</span>
+          <span class="skill-tag">Manajemen Humas</span>
+          <span class="skill-tag">Penelitian & Pengembangan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tujuan & Motivasi dengan detail baru -->
+  <div class="section">
+    <h2><i class="fas fa-bullseye"></i> Tujuan & Motivasi</h2>
+    <div class="card" style="background: linear-gradient(125deg, #0a0a0f, #100e1a); border-left: 6px solid #a855f7;">
+      <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
+        <div style="flex: 2;">
+          <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">✨ <strong>Komitmen melanjutkan studi di bidang Ilmu Komputer & Bahasa Jepang</strong></p>
+          <p>Saya memiliki tekad untuk memperdalam pengetahuan di bidang komputer dan sistem embedded, sekaligus menguasai bahasa Jepang secara profesional. Dengan bekal akademik dari D3 Teknik Komputer, pengalaman proyek sensor, serta kemampuan komunikasi lintas budaya, saya siap berkontribusi di dunia kerja internasional, khususnya di Jepang. Saya terus mengikuti kursus bahasa, pelatihan teknis, dan aktif dalam organisasi untuk memperkuat portofolio.</p>
+          <div style="margin-top: 1rem;"><span class="skill-tag" style="background:#7c3aed30;"><i class="fas fa-rocket"></i> Target: Magang/Studi ke Jepang (IT field)</span> <span class="skill-tag" style="background:#7c3aed30;"><i class="fas fa-robot"></i> Embedded Systems & AI</span> <span class="skill-tag" style="background:#7c3aed30;"><i class="fas fa-language"></i> JLPT N5 → N4</span></div>
+        </div>
+        <div style="flex: 0.5; font-size: 3rem; text-align: center; color: #a855f7;"><i class="fas fa-arrow-right"></i> 🇯🇵</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kontak & Informasi Personal -->
+  <div id="contact" class="section">
+    <h2><i class="fas fa-address-card"></i> Kontak & Detail Personal</h2>
+    <div class="card">
+      <div class="grid-2" style="gap: 1rem;">
+        <div>
+          <div class="contact-item"><i class="fas fa-envelope icon-purple"></i> <a href="mailto:dimasromadhon2007@gmail.com">dimasromadhon2007@gmail.com</a></div>
+          <div class="contact-item"><i class="fas fa-phone-alt icon-purple"></i> <a href="tel:+6285259380253">0852-5938-0253</a></div>
+          <div class="contact-item"><i class="fas fa-map-marker-alt icon-purple"></i> <span>Barong 28, Pendem, Sumberlawang, Sragen, Jawa Tengah, Indonesia</span></div>
+        </div>
+        <div>
+          <div class="contact-item"><i class="fas fa-birthday-cake icon-purple"></i> <span>Sragen, 18 September 2007</span></div>
+          <div class="contact-item"><i class="fas fa-globe-asia icon-purple"></i> <span>Terbuka untuk kolaborasi riset, magang, dan beasiswa luar negeri</span></div>
+          <div class="contact-item"><i class="fab fa-github icon-purple"></i> <span style="color:#9ca3af;">Portfolio GitHub (segera) · D3 Teknik Komputer</span></div>
+        </div>
+      </div>
+      <hr>
+      <div style="text-align: center; font-size: 0.85rem; color: #b1b1c2;">
+        <i class="fas fa-heart" style="color: #c084fc;"></i> Siap berkontribusi di dunia teknologi internasional | テクノロジーと日本語で未来を創る
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Dimas Romadhon — Portofolio elegan dengan sentuhan ungu | D3 Teknik Komputer · Embedded & AI Learner · 日本語学習中</p>
+    <p style="margin-top: 6px; font-size: 0.75rem;">#FutureEngineer #StudyInJapan #Arduino #HimpunanMahasiswa #TechAndCulture</p>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === "#") return;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
